@@ -1,14 +1,16 @@
+import { BBSDataType } from "@/lib/difinition";
 import { BBSCard } from "./bbsCard";
 
-export const BBSCardList = () => {
+interface BBSAllDataProps {
+  bbsAllData: BBSDataType[];
+}
+
+export const BBSCardList = ({ bbsAllData } : BBSAllDataProps) => {
   return (
     <>
-      <BBSCard />
-      <BBSCard />
-      <BBSCard />
-      <BBSCard />
-      <BBSCard />
-      <BBSCard />
+      {bbsAllData.map((bbsData: BBSDataType)=>(
+        <BBSCard key={bbsData.id} bbsData={bbsData} />
+      ))}
     </>
   );
 };

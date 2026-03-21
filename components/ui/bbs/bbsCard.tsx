@@ -7,25 +7,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { BBSDataType } from "@/lib/difinition";
 import Link from "next/link";
-export const BBSCard = () => {
+
+interface BBSDataProps {
+  bbsData: BBSDataType
+}
+
+export const BBSCard = ({bbsData} : BBSDataProps) => {
+  const { id, title, content, username } = bbsData;
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{username}</CardDescription>
         <CardAction>Card Action</CardAction>
       </CardHeader>
       <CardContent>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio
-          cupiditate, vitae doloremque maiores in architecto minus non corrupti
-          consequatur perspiciatis dignissimos illo dolores a quod labore
-          accusantium asperiores consequuntur nisi.
+          {content}
         </p>
       </CardContent>
       <CardFooter>
-        <Link href={"/bbs-posts/1"} className="text-blue-500">
+        <Link href={`/bbs-posts/${id}`} className="text-blue-500">
           Read More
         </Link>
       </CardFooter>
