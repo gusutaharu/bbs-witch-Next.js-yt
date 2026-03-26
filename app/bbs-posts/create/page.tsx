@@ -7,8 +7,10 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 function CreatePage() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -18,7 +20,21 @@ function CreatePage() {
     },
   });
 
-  async function onSubmit() {}
+  async function onSubmit(value: z.infer<typeof formSchema>) {
+    const { username, title, content } = value;
+    try{
+      await fetch("http://localhost:3000/api/post", {
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json",
+        },
+        body: JSON.stringify({ username, title, content})
+      });
+      router.push("/");
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <form
